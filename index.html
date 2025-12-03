@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wrapped de Milena</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#071022;--card:#0f1724;--accent:#1db954;--muted:rgba(230,238,245,0.65)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:Inter,Montserrat,system-ui;background:linear-gradient(135deg,var(--bg),#041122 70%);color:#eaf2fb;overflow-x:hidden}
+.container{max-width:1200px;margin:28px auto;padding:20px}
+.header{display:flex;align-items:center;gap:18px}
+.logo{width:80px;height:80px;border-radius:16px;background:linear-gradient(135deg,#5eead4,#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:800;color:#021024;font-size:20px}
+.h1{font-family:Montserrat;font-weight:800;font-size:28px}
+.lead{color:var(--muted);margin-top:6px}
+.grid{display:grid;grid-template-columns:360px 1fr;gap:22px;margin-top:20px}
+.panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent),var(--card);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(2,8,20,0.6)}
+.list{margin-top:14px;display:flex;flex-direction:column;gap:12px;max-height:62vh;overflow:auto;padding-right:6px}
+.song{display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);cursor:pointer;opacity:0;animation:fadeInUp 0.6s forwards}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.art{width:64px;height:64px;border-radius:10px;flex-shrink:0;overflow:hidden}
+.art img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.song:hover .art img{transform:scale(1.1)}
+.meta h3{margin:0;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta p{margin:6px 0 0;color:var(--muted);font-size:13px}
+.right{display:flex;flex-direction:column;gap:16px}
+.hero{border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px;transition:all .5s ease;position:relative;overflow:hidden}
+.cover-area{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:center;position:relative}
+.cover-art{width:220px;height:220px;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff1,#0003);transition:all .5s ease;will-change:transform}
+.cover-art img{width:100%;height:100%;object-fit:cover;transition:all .5s ease}
+.cover-info h2, .cover-info p, .reason-text{opacity:0;transform:translateY(20px);transition:all .4s ease}
+.reason-panel{margin-top:12px;background:rgba(0,0,0,0.05);border-radius:12px;padding:12px;min-height:50px;overflow:hidden}
+.controls-row{display:flex;gap:8px;align-items:center;margin-top:12px}
+.progress{height:8px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden}
+.progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#2aa6ff)}
+.carousel{display:flex;gap:12px;overflow-x:auto;padding:8px;margin-top:12px;scroll-behavior:smooth}
+.card-cover{height:120px;border-radius:10px;overflow:hidden;flex:0 0 auto;transition:transform .4s cubic-bezier(.2,.9,.2,1)}
+.card-cover img{width:100%;height:100%;object-fit:cover}
+.card-cover.selected{transform:scale(1.05) translateY(-6px)}
+#playerWrap{margin-top:12px;border-radius:12px}
+.fadeInText{opacity:1 !important;transform:translateY(0) !important}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.cover-area{grid-template-columns:140px 1fr}.cover-art{width:140px;height:140px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">WR</div>
+    <div>
+      <div class="h1">Wrapped para Milena</div>
+      <div class="lead">Playlist animada tipo Spotify Wrapped</div>
+    </div>
+  </div>
+  <div class="grid">
+    <aside class="panel">
+      <strong>Top canciones</strong>
+      <div class="list" id="songList"></div>
+    </aside>
+    <section class="right">
+      <div class="panel hero">
+        <div class="cover-area">
+          <div class="cover-art" id="bigArt"></div>
+          <div class="cover-info">
+            <h2 id="coverTitle">Selecciona una canción</h2>
+            <p id="coverSubtitle"></p>
+          </div>
+        </div>
+        <div class="reason-panel">
+          <div class="reason-text" id="reasonText">Aquí verás por qué esta canción me recuerda a Milena</div>
+        </div>
+        <div class="controls-row">
+          <div style="flex:1">
+            <div class="progress" id="progressBar"><i></i></div>
+          </div>
+          <div id="timeLabel" style="min-width:56px;color:var(--muted);text-align:right">0:00</div>
+        </div>
+        <div class="carousel" id="carousel"></div>
+        <div class="panel" id="playerWrap"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+const songListEl = document.getElementById('songList');
+const bigArtEl = document.getElementById('bigArt');
+const coverTitleEl = document.getElementById('coverTitle');
+const coverSubtitleEl = document.getElementById('coverSubtitle');
+const reasonTextEl = document.getElementById('reasonText');
+const carousel = document.getElementById('carousel');
+const playerWrap = document.getElementById('playerWrap');
+const progressBar = document.getElementById('progressBar').firstElementChild;
+const timeLabel = document.getElementById('timeLabel');
+
+let songs = [];
+let currentIndex = -1;
+let mediaEl;
+
+function formatTime(s){if(!s) return '0:00'; let m=Math.floor(s/60), sec=Math.floor(s%60); return m+':'+(sec<10?'0'+sec:sec)}
+
+fetch('https://ravelooo25.github.io/mis-canciones/playlist.json')
+.then(res=>res.json())
+.then(data=>{songs=data; renderList(); selectSong(0);});
+
+function renderList(){
+  songListEl.innerHTML=''; carousel.innerHTML='';
+  songs.forEach((s,i)=>{
+    const div = document.createElement('div'); div.className='song'; div.style.animationDelay=(i*0.1)+'s';
+    div.innerHTML = `<div class='art'><img src='${s.img}'></div>
+                     <div class='meta'><h3>${s.title}</h3><p>${s.artist} · ${s.reason||''}</p></div>`;
+    div.onclick = ()=>selectSong(i);
+    songListEl.appendChild(div);
+
+    const c = document.createElement('div'); c.className='panel card-cover card'; c.style.minWidth='160px';
+    c.innerHTML = `<div class='card-cover'><img src='${s.img}'></div>
+                   <div style='padding:8px'><strong>${s.title}</strong><small style='color:#a0a0a0'>${s.artist}</small></div>`;
+    c.onclick = ()=>selectSong(i);
+    carousel.appendChild(c);
+  });
+}
+
+function selectSong(i){
+  const s = songs[i]; if(!s) return; currentIndex=i;
+  bigArtEl.style.opacity=0; coverTitleEl.classList.remove('fadeInText'); coverSubtitleEl.classList.remove('fadeInText'); reasonTextEl.classList.remove('fadeInText');
+  stopMedia();
+  setTimeout(()=>{
+    bigArtEl.innerHTML=`<img src='${s.img}'>`; bigArtEl.style.opacity=1;
+    coverTitleEl.textContent=s.title; coverSubtitleEl.textContent=s.artist;
+    reasonTextEl.textContent=s.reason || 'Sin motivo escrito';
+    coverTitleEl.classList.add('fadeInText'); coverSubtitleEl.classList.add('fadeInText'); reasonTextEl.classList.add('fadeInText');
+
+    if(s.audio.endsWith('.mp4')){
+      playerWrap.innerHTML=`<video id="mainVideo" controls autoplay playsinline style="width:100%;border-radius:12px"><source src="${s.audio}" type="video/mp4">Tu navegador no soporta este video.</video>`;
+      mediaEl=document.getElementById('mainVideo');
+    } else {
+      playerWrap.innerHTML=`<audio id="mainAudio" controls autoplay style="width:100%"><source src="${s.audio}" type="audio/mpeg">Tu navegador no soporta este audio.</audio>`;
+      mediaEl=document.getElementById('mainAudio');
+    }
+
+    mediaEl.addEventListener('timeupdate', ()=>{
+      if(!mediaEl.duration) return;
+      const pct=(mediaEl.currentTime/mediaEl.duration)*100;
+      progressBar.style.width=pct+'%'; timeLabel.textContent=formatTime(mediaEl.currentTime);
+    });
+    mediaEl.addEventListener('ended', ()=>{progressBar.style.width='100%'; timeLabel.textContent=formatTime(mediaEl.duration);});
+    Array.from(carousel.children).forEach((c,idx)=>c.classList.toggle('selected', idx===i));
+  },300);
+}
+
+function stopMedia(){if(mediaEl){mediaEl.pause();mediaEl.currentTime=0; playerWrap.innerHTML='';}}
+
+window.addEventListener('scroll', ()=>{bigArtEl.style.transform=`translateY(${window.scrollY*0.2}px)`});
+</script>
+</body>
+</html>
