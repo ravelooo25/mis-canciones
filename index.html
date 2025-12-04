@@ -1,1 +1,31 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Wrapped para Milena</title> <link rel="stylesheet" href="style.css"> </head> <body> <div id="app"> <section id="intro" class="screen active"> <h1>Milena Wrapped</h1> <p>Estas canciones me hacen acordar a vos.</p> <button onclick="startWrapped()">Ver</button> </section> <section id="carousel" class="screen"> <div id="slides"></div> <button class="nextBtn" onclick="nextSlide()">Siguiente</button> </section> <section id="player" class="screen"> <video id="vid" controls></video> <h2 id="pTitle"></h2> <p id="pArtist"></p> <p id="pReason"></p> <button onclick="backToSlides()">Volver</button> </section> </div> <script> const songs = [ {"title":"My Kind Of Woman","artist":"Mac DeMarco","img":"imagenes/MyKindOfWoman.jpg","audio":"mp3_o_mp4/MyKindOfWoman.mp4","reason":"Me recuerda a vos porque sos mi tipo ideal"}, {"title":"Boy With Luv","artist":"BTS","img":"imagenes/BoyWithLuv.jpg","audio":"mp3_o_mp4/BoyWithLuv.mp4","reason":"Porque estoy completamente enamorado de vos"}, {"title":"A La Vez","artist":"Conociendo Rusia","img":"imagenes/ALaVez.jpg","audio":"mp3_o_mp4/ALaVez.mp4","reason":"Porque Soy particularmente solitario, vos pintás con color el diario"}, {"title":"Adore You","artist":"Harry Styles","img":"imagenes/AdoreYou.jpg","audio":"mp3_o_mp4/AdoreYou.mp4","reason":"Porque te adoro con todo mi corazón"} ]; const screens = document.querySelectorAll('.screen'); const slidesContainer = document.getElementById('slides'); let slideIndex = 0; function showScreen(id){ screens.forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); } function startWrapped(){ buildSlides(); slideIndex = 0; updateSlide(); showScreen('carousel'); } function buildSlides(){ slidesContainer.innerHTML = ''; songs.forEach((s,i)=>{ const d = document.createElement('div'); d.className = 'slide'; d.innerHTML = "<img src='"+s.img+"'><h2>"+s.title+"</h2><p>"+s.artist+"</p>"; d.onclick = ()=>openPlayer(i); slidesContainer.appendChild(d); }); } function updateSlide(){ const w = slidesContainer.offsetWidth; slidesContainer.style.transform = "translateX(" + (-slideIndex * w) + "px)"; } function nextSlide(){ slideIndex++; if(slideIndex >= songs.length) slideIndex = 0; updateSlide(); } function openPlayer(i){ const s = songs[i]; const vid = document.getElementById('vid'); vid.src = s.audio; document.getElementById('pTitle').innerText = s.title; document.getElementById('pArtist').innerText = s.artist; document.getElementById('pReason').innerText = s.reason; showScreen('player'); } function backToSlides(){ showScreen('carousel'); } </script> </body> </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Wrapped</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Bienvenida -->
+    <section id="bienvenida" class="pantalla visible">
+        <div class="estrellas"></div>
+
+        <div class="contenedor-bienvenida">
+            <h1 class="titulo">Mi Wrapped</h1>
+            <h2 class="subtitulo">Aquí verás las canciones que me recuerdan a vos</h2>
+            <button id="btnComenzar" class="boton-inicio">toca aquí</button>
+        </div>
+    </section>
+
+    <!-- Pantalla 1 -->
+    <section id="pantalla1" class="pantalla">
+        <div class="fondo"></div>
+        <h1 class="titulo-pantalla">Bienvenida Milena</h1>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

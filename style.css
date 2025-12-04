@@ -1,113 +1,116 @@
-body{
-margin:0;
-background:black;
-color:white;
-font-family:Arial, Helvetica, sans-serif;
-overflow:hidden;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.screen{
-width:100vw;
-height:100vh;
-display:none;
-padding:40px;
-box-sizing:border-box;
-text-align:center;
+body {
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
 }
 
-.screen.active{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-animation:fade 0.7s;
+/* Pantallas */
+.pantalla {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
 }
 
-@keyframes fade{
-from{opacity:0;}
-to{opacity:1;}
+.pantalla.visible {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-button{
-background:#1db954;
-border:none;
-padding:12px 28px;
-color:white;
-border-radius:30px;
-font-size:18px;
-cursor:pointer;
-margin-top:20px;
-transition:0.3s;
+/* CENTRADO REAL */
+.contenedor-bienvenida {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
 }
 
-button:hover{
-transform:scale(1.08);
+/* Estrellas animadas */
+.estrellas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(#ff7fa5 1px, transparent 1px),
+        radial-gradient(#ff7fa5 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    animation: moverEstrellas 8s linear infinite;
+    opacity: 0.4;
+    z-index: 1;
 }
 
-#intro h1{
-font-size:48px;
-font-weight:bold;
-margin-bottom:10px;
+@keyframes moverEstrellas {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-200px); }
 }
 
-#carousel{
-position:relative;
-overflow:hidden;
+/* Textos */
+.titulo {
+    font-size: 45px;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
-#slides{
-display:flex;
-transition:0.6s ease;
-height:100%;
-align-items:center;
+.subtitulo {
+    font-size: 20px;
+    margin-bottom: 30px;
 }
 
-.slide{
-min-width:100%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+/* Botón rosa */
+.boton-inicio {
+    background: #ff7fa5;
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    font-size: 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    font-weight: 700;
 }
 
-.slide img{
-width:340px;
-height:340px;
-object-fit:cover;
-border-radius:20px;
-box-shadow:0 0 40px rgba(255,255,255,0.2);
-margin-bottom:20px;
+.boton-inicio:active {
+    transform: scale(0.92);
 }
 
-.slide h2{
-font-size:36px;
-margin:10px 0 0;
+/* Fondo general */
+.fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('fondo_general.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
 }
 
-.slide p{
-opacity:0.7;
-}
-
-.nextBtn{
-position:absolute;
-bottom:40px;
-right:40px;
-}
-
-#player video{
-width:90vw;
-max-width:600px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 0 40px rgba(255,255,255,0.25);
-}
-
-#player h2{
-font-size:32px;
-margin-top:10px;
-}
-
-#player p{
-opacity:0.75;
-margin:5px 0;
+/* Pantalla 1 */
+.titulo-pantalla {
+    position: absolute;
+    top: 45%;
+    width: 100%;
+    text-align: center;
+    font-size: 45px;
+    font-weight: 700;
+    z-index: 2;
 }
