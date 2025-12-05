@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function(){
   const songs = [
     { title: "My Kind Of Woman", artist: "Mac DeMarco", img: "imagenes/MyKindOfWoman.jpg", video: "mp4/MyKindOfWoman.mp4", reason: "Me recuerda a vos porque sos mi tipo ideal" },
     { title: "Boy With Luv", artist: "BTS", img: "imagenes/BoyWithLuv.jpg", video: "mp4/BoyWithLuv.mp4", reason: "Porque estoy completamente enamorado de vos" },
-    { title: "A La Vez", artist: "Conociendo Rusia", img: "imagenes/ALaVez.jpg", video: "mp4/ALaVez.mp4", reason: "Porque soy particularmente solitario, vos pintás con color el diario" },
+    { title: "A La Vez", artist: "Conociendo Rusia", img: "imagenes/ALaVez.jpg", video: "mp4/ALaVez.mp4", reason: "Porque -soy particularmente solitario, vos pintás con color el diario-" },
     { title: "Adore You", artist: "Harry Styles", img: "imagenes/AdoreYou.jpg", video: "mp4/AdoreYou.mp4", reason: "Porque te adoro con todo mi corazón" },
     { title: "Those Eyes", artist: "New West", img: "imagenes/ThoseEyes.jpg", video: "mp4/ThoseEyes.mp4", reason: "Porque tus ojos me tienen completamente hipnotizado" },
     { title: "Cicuta Remix", artist: "Peces Raros y Trueno", img: "imagenes/CicutaRemix.jpg", video: "mp4/CicutaRemix.mp4", reason: "Porque vivo necesitandote" },
