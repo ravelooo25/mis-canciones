@@ -1,31 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Wrapped</title>
-
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mi Wrapped</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Bienvenida -->
-    <section id="bienvenida" class="pantalla visible">
-        <div class="estrellas"></div>
+  <!-- Canvas para partículas de notas musicales -->
+  <canvas id="canvas-notas"></canvas>
 
-        <div class="contenedor-bienvenida">
-            <h1 class="titulo">Mi Wrapped</h1>
-            <h2 class="subtitulo">Aquí verás las canciones que me recuerdan a vos</h2>
-            <button id="btnComenzar" class="boton-inicio">toca aquí</button>
+  <!-- PANTALLA 1 - Bienvenida -->
+  <main id="app">
+    <section id="pantalla-inicio" class="pantalla pantalla-activa" aria-label="Bienvenida">
+      <div class="contenedor-centro">
+        <h1 class="titulo-principal">Hola mile</h1>
+        <p class="subtitulo">Felices 3 meses ♡</p>
+        <button id="btn-iniciar" class="btn-rosa" aria-label="Comenzar">Entrá!</button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2 - Wrapped especial -->
+    <section id="pantalla-wrapped" class="pantalla" aria-label="Wrapped Especial">
+      <div class="contenedor-centro">
+        <h2 class="titulo-principal">Un Wrapped Especial</h2>
+        <p class="subtitulo">Estas canciones son para vos, con todo el amor del mundo y más...</p>
+        <button id="btn-wrapped-siguiente" class="btn-rosa">Toca aquí para ver la playlist</button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 3 - Grid de canciones -->
+    <section id="pantalla-canciones" class="pantalla" aria-label="Listado de canciones">
+      <div class="contenido-canciones">
+        <h2 class="titulo-seccion">♡ Canciones que me recuerdan a Milena ♡</h2>
+        <div id="grid-canciones" class="grid-canciones"></div>
+        <button id="btn-final" class="btn-repetir">Ya escuché todas las canciones</button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 4 - Reproductor -->
+    <section id="pantalla-reproductor" class="pantalla" aria-label="Reproductor de canción">
+      <div class="player-card">
+        <video id="video-player" controls playsinline></video>
+        <div class="meta">
+          <h3 id="player-title"></h3>
+          <p id="player-reason"></p>
         </div>
+        <div class="player-actions">
+          <button id="btn-volver" class="btn-volver">Volver a la playlist</button>
+        </div>
+      </div>
     </section>
 
-    <!-- Pantalla 1 -->
-    <section id="pantalla1" class="pantalla">
-        <div class="fondo"></div>
-        <h1 class="titulo-pantalla">Bienvenida Milena</h1>
+    <!-- PANTALLA 5 - Final -->
+    <section id="pantalla-final" class="pantalla" aria-label="Pantalla final">
+      <div class="contenedor-centro">
+        <h2 class="titulo-principal">Gracias por escuchar, te amo mile ♡</h2>
+        <button id="btn-repetir" class="btn-repetir">Volver a la playlist</button>
+      </div>
     </section>
+  </main>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
+  <script>
+    window.addEventListener('load', ()=> document.body.classList.add('loaded'));
+  </script>
 </body>
 </html>
