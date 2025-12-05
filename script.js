@@ -91,15 +91,16 @@ document.addEventListener('DOMContentLoaded', function(){
   btnRepetir && btnRepetir.addEventListener('click',()=>showScreen(pantallaCanciones));
 
   function openPlayer(index){
-    const s = songs[index];
-    if(!s) return;
-    videoPlayer.src = s.video;
-    videoPlayer.currentTime=0;
-    videoPlayer.play().catch(()=>{});
-    playerTitle.textContent=s.title;
-    playerReason.textContent=s.reason;
-    showScreen(pantallaReproductor);
-  }
+  const s = songs[index];
+  if(!s) return;
+  videoPlayer.src = s.video;            // se asigna el video
+  videoPlayer.poster = s.img;            // poster de la tarjeta
+  videoPlayer.currentTime = 0;
+  videoPlayer.play().catch(()=>{});
+  playerTitle.textContent = s.title;
+  playerReason.textContent = s.reason;
+  showScreen(pantallaReproductor);
+}
 
   btnVolver && btnVolver.addEventListener('click', ()=>{
     try{ videoPlayer.pause(); }catch(e){}
