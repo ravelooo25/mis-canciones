@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function(){
     { title: "After Last Night", artist: "Bruno Mars", img: "imagenes/AfterLastNight.jpg", video: "mp4/AfterLastNight.mp4", reason: "Porque después de esa noche me dejaste enamorado" },
     { title: "Every Breath You Take", artist: "The Police", img:"imagenes/EveryBreathYouTake.jpg",video:"mp4/EveryBreathYouTake.mp4",reason:"Porque ahí voy a estar en cada momento"},
     { title: "How Deep Is Your Love", artist:"Bee Gees", img:"imagenes/HowDeepIsYourLove.jpg",video:"mp4/HowDeepIsYourLove.mp4",reason:"Porque conoces la puerta a mi alma"},
-    { title: "Will You Still Love Me?", artist:"Chicago",img:"imagenes/“WillYouStillLoveMe.jpg",video:"mp4/WillYouStillLoveMe.mp4",reason:"Porque no puedo seguir sin vos"},
+    { title: "Will You Still Love Me?", artist:"Chicago",img:"imagenes/WillYouStillLoveMe.jpg",video:"mp4/WillYouStillLoveMe.mp4",reason:"Porque no puedo seguir sin vos"},
     { title: "Nothing's Gonna Change My Love For You",artist:"Glenn Medeiros", img:"imagenes/NothingsGonnaChangeMyLoveForYou.jpg",video:"mp4/NothingsGonnaChangeMyLoveForYou.mp4",reason:"Nada va a cambiar mi amor por vos"},
     { title: "I Want To Know What Love Is", artist:"Foreigner", img:"imagenes/IWantToKnowWhatLoveIs.jpg",video:"mp4/IWantToKnowWhatLoveIs.mp4",reason:"Porque me encanta que me muestres tu amor"},
     { title: "Can't Take My Eyes off You", artist:"Frankie Valli", img:"imagenes/CantTakeMyEyesoffYou.jpg",video:"mp4/CantTakeMyEyesoffYou.mp4",reason:"Porque no puedo dejar de mirarte"},
